@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Reservación</title>
+    <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function(){
+            emailjs.init("7bj0CrfRLFhviOWRl");  // Sustituir con tu user_id de EmailJS
+        })();
+    </script>
+</head>
+<body>
+
+    <h2>Formulario de Reservación</h2>
+    <form id="reservation-form">
+        <input type="text" name="from_name" placeholder="Tu nombre" required>
+        <input type="email" name="from_email" placeholder="Tu correo electrónico" required>
+        <input type="date" name="date" required>
+        <textarea name="message" placeholder="Mensaje adicional..." required></textarea>
+        <button type="submit">Enviar Reservación</button>
+    </form>
+
+    <script>
+        document.getElementById("reservation-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            
+            var formData = new FormData(event.target);
+            
+            emailjs.sendForm("service_zgfzvjj", "template_99uc8kj", formData)
+                .then(function(response) {
+                    alert("Correo enviado exitosamente!");
+                }, function(error) {
+                    alert("Hubo un error al enviar el correo: " + error.text);
+                });
+        });
+
+        emailjs.init("tu_public_key");
+
+const templateParams = {
+  from_name: "Nombre del Cliente",
+  from_email: "cliente@correo.com",
+  message: "Detalles de la reservación aquí"
+};
+
+emailjs.send("service_zgfzvjj", "template_99uc8kj", templateParams)
+  .then(function(response) {
+    console.log("Correo enviado exitosamente", response);
+  }, function(error) {
+    console.log("Error al enviar el correo", error);
+  });
+
+    </script>
+
+</body>
+</html>
